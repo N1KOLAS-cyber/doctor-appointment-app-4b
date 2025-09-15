@@ -63,3 +63,583 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 =======
 # doctor-appointment-app-4b
 >>>>>>> 4052f51e81311893023008fe90f7d8914d5dc269
+>>>>
+>>>>Perfecto, Nicolás, te lo dejo ahora completo en formato README.md, listo para copiar y pegar en tu repositorio de GitHub.
+
+
+---
+
+# Guía de Configuración del Proyecto
+
+Este documento explica cómo configurar los principales aspectos del proyecto en Laravel: **MySQL, idioma, zona horaria y foto de perfil**.
+
+---
+
+## 🚀 1. Configuración de MySQL
+1. Asegúrate de tener instalado y en ejecución **MySQL**.  
+2. Si usas **XAMPP**, también debes iniciar **Apache** junto con MySQL.  
+3. Levanta el servidor de Laravel con:  
+   ```bash
+   php artisan serve
+
+4. En caso de error de conexión, revisa el archivo .env del proyecto y corrige las credenciales:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+
+
+
+---
+
+🌐 2. Configuración de Idioma
+
+1. Abre el archivo config/app.php.
+
+
+2. Busca la clave:
+
+'locale' => 'en',
+
+
+3. Sustitúyela por el idioma deseado, por ejemplo para español:
+
+'locale' => 'es',
+
+
+4. Con esto los mensajes de validación y textos del framework estarán en español (si tienes instalados los archivos de traducción).
+
+
+
+
+---
+
+🕒 3. Configuración de Zona Horaria
+
+1. En el mismo archivo config/app.php, ubica la clave:
+
+'timezone' => 'UTC',
+
+
+2. Sustitúyela por tu zona horaria. Ejemplo para Ciudad de México:
+
+'timezone' => 'America/Mexico_City',
+
+
+3. De esta forma, todas las fechas y horas gestionadas por Laravel estarán alineadas con tu región.
+
+
+
+
+---
+
+🖼️ 4. Configuración de Foto de Perfil
+
+1. Laravel utiliza la carpeta storage/app/public para almacenar archivos.
+Para exponerla en public/storage, crea el enlace simbólico con:
+
+php artisan storage:link
+
+
+2. Al subir la foto de perfil:
+
+El sistema valida que no supere un tamaño máximo (ejemplo: 35 KB).
+
+La imagen se guarda en public/storage con un nombre aleatorio.
+
+En la base de datos se almacena solo la referencia del archivo.
+
+
+
+3. Desde la interfaz, podrás:
+
+Subir una nueva foto.
+
+Eliminar la foto existente.
+
+Reemplazarla por otra.
+
+
+
+
+
+---
+
+✅ Resumen
+
+Con estos pasos tendrás configurado:
+
+Base de datos MySQL.
+
+Idioma de la aplicación.
+
+Zona horaria correcta.
+
+Subida y gestión de foto de perfil.
+
+
+---
+
+¿Quieres que también le agregue una **sección de requisitos previos** (PHP, Composer, Laravel, MySQL instalados) para que quede aún más completo como guía en tu GitHub?
+
+Perfecto, Nicolás, te lo dejo ahora completo en formato README.md, listo para copiar y pegar en tu repositorio de GitHub.
+
+
+---
+
+# Guía de Configuración del Proyecto
+
+Este documento explica cómo configurar los principales aspectos del proyecto en Laravel: **MySQL, idioma, zona horaria y foto de perfil**.
+
+---
+
+## 🚀 1. Configuración de MySQL
+1. Asegúrate de tener instalado y en ejecución **MySQL**.  
+2. Si usas **XAMPP**, también debes iniciar **Apache** junto con MySQL.  
+3. Levanta el servidor de Laravel con:  
+   ```bash
+   php artisan serve
+
+4. En caso de error de conexión, revisa el archivo .env del proyecto y corrige las credenciales:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+
+
+
+---
+
+🌐 2. Configuración de Idioma
+
+1. Abre el archivo config/app.php.
+
+
+2. Busca la clave:
+
+'locale' => 'en',
+
+
+3. Sustitúyela por el idioma deseado, por ejemplo para español:
+
+'locale' => 'es',
+
+
+4. Con esto los mensajes de validación y textos del framework estarán en español (si tienes instalados los archivos de traducción).
+
+
+
+
+---
+
+🕒 3. Configuración de Zona Horaria
+
+1. En el mismo archivo config/app.php, ubica la clave:
+
+'timezone' => 'UTC',
+
+
+2. Sustitúyela por tu zona horaria. Ejemplo para Ciudad de México:
+
+'timezone' => 'America/Mexico_City',
+
+
+3. De esta forma, todas las fechas y horas gestionadas por Laravel estarán alineadas con tu región.
+
+
+
+
+---
+
+🖼️ 4. Configuración de Foto de Perfil
+
+1. Laravel utiliza la carpeta storage/app/public para almacenar archivos.
+Para exponerla en public/storage, crea el enlace simbólico con:
+
+php artisan storage:link
+
+
+2. Al subir la foto de perfil:
+
+El sistema valida que no supere un tamaño máximo (ejemplo: 35 KB).
+
+La imagen se guarda en public/storage con un nombre aleatorio.
+
+En la base de datos se almacena solo la referencia del archivo.
+
+
+
+3. Desde la interfaz, podrás:
+
+Subir una nueva foto.
+
+Eliminar la foto existente.
+
+Reemplazarla por otra.
+
+
+
+
+
+---
+
+✅ Resumen
+
+Con estos pasos tendrás configurado:
+
+Base de datos MySQL.
+
+Idioma de la aplicación.
+
+Zona horaria correcta.
+
+Subida y gestión de foto de perfil.
+
+
+---
+
+¿Quieres que también le agregue una **sección de requisitos previos** (PHP, Composer, Laravel, MySQL instalados) para que quede aún más completo como guía en tu GitHub?
+Perfecto, Nicolás, te lo dejo ahora completo en formato README.md, listo para copiar y pegar en tu repositorio de GitHub.
+
+
+---
+
+# Guía de Configuración del Proyecto
+
+Este documento explica cómo configurar los principales aspectos del proyecto en Laravel: **MySQL, idioma, zona horaria y foto de perfil**.
+
+---
+
+## 🚀 1. Configuración de MySQL
+1. Asegúrate de tener instalado y en ejecución **MySQL**.  
+2. Si usas **XAMPP**, también debes iniciar **Apache** junto con MySQL.  
+3. Levanta el servidor de Laravel con:  
+   ```bash
+   php artisan serve
+
+4. En caso de error de conexión, revisa el archivo .env del proyecto y corrige las credenciales:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+
+
+
+---
+
+🌐 2. Configuración de Idioma
+
+1. Abre el archivo config/app.php.
+
+
+2. Busca la clave:
+
+'locale' => 'en',
+
+
+3. Sustitúyela por el idioma deseado, por ejemplo para español:
+
+'locale' => 'es',
+
+
+4. Con esto los mensajes de validación y textos del framework estarán en español (si tienes instalados los archivos de traducción).
+
+
+
+
+---
+
+🕒 3. Configuración de Zona Horaria
+
+1. En el mismo archivo config/app.php, ubica la clave:
+
+'timezone' => 'UTC',
+
+
+2. Sustitúyela por tu zona horaria. Ejemplo para Ciudad de México:
+
+'timezone' => 'America/Mexico_City',
+
+
+3. De esta forma, todas las fechas y horas gestionadas por Laravel estarán alineadas con tu región.
+
+
+
+
+---
+
+🖼️ 4. Configuración de Foto de Perfil
+
+1. Laravel utiliza la carpeta storage/app/public para almacenar archivos.
+Para exponerla en public/storage, crea el enlace simbólico con:
+
+php artisan storage:link
+
+
+2. Al subir la foto de perfil:
+
+El sistema valida que no supere un tamaño máximo (ejemplo: 35 KB).
+
+La imagen se guarda en public/storage con un nombre aleatorio.
+
+En la base de datos se almacena solo la referencia del archivo.
+
+
+
+3. Desde la interfaz, podrás:
+
+Subir una nueva foto.
+
+Eliminar la foto existente.
+
+Reemplazarla por otra.
+
+
+
+
+
+---
+
+✅ Resumen
+
+Con estos pasos tendrás configurado:
+
+Base de datos MySQL.
+
+Idioma de la aplicación.
+
+Zona horaria correcta.
+
+Subida y gestión de foto de perfil.
+
+
+
+# Guía de Configuración del Proyecto
+
+Este documento explica cómo configurar los principales aspectos del proyecto en Laravel: **MySQL, idioma, zona horaria y foto de perfil**.
+
+---
+
+## 🚀 1. Configuración de MySQL
+1. Asegúrate de tener instalado y en ejecución **MySQL**.  
+2. Si usas **XAMPP**, también debes iniciar **Apache** junto con MySQL.  
+3. Levanta el servidor de Laravel con:  
+   ```bash
+   php artisan serve
+
+4. En caso de error de conexión, revisa el archivo .env del proyecto y corrige las credenciales:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+
+
+
+---
+
+🌐 2. Configuración de Idioma
+
+1. Abre el archivo config/app.php.
+
+
+2. Busca la clave:
+
+'locale' => 'en',
+
+
+3. Sustitúyela por el idioma deseado, por ejemplo para español:
+
+'locale' => 'es',
+
+
+4. Con esto los mensajes de validación y textos del framework estarán en español (si tienes instalados los archivos de traducción).
+
+
+
+
+---
+
+ 3. Configuración de Zona Horaria
+
+1. En el mismo archivo config/app.php, ubica la clave:
+
+'timezone' => 'UTC',
+
+
+2. Sustitúyela por tu zona horaria. Ejemplo para Ciudad de México:
+
+'timezone' => 'America/Mexico_City',
+
+
+3. De esta forma, todas las fechas y horas gestionadas por Laravel estarán alineadas con tu región.
+
+
+
+
+---
+ 4. Configuración de Foto de Perfil
+
+1. Laravel utiliza la carpeta storage/app/public para almacenar archivos.
+Para exponerla en public/storage, crea el enlace simbólico con:
+
+php artisan storage:link
+
+
+2. Al subir la foto de perfil:
+
+El sistema valida que no supere un tamaño máximo (ejemplo: 35 KB).
+
+La imagen se guarda en public/storage con un nombre aleatorio.
+
+En la base de datos se almacena solo la referencia del archivo.
+
+
+
+3. Desde la interfaz, podrás:
+
+Subir una nueva foto.
+
+Eliminar la foto existente.
+
+Reemplazarla por otra.
+.
+
+
+---
+
+¿Quieres que también le agregue una **sección de requisitos previos** (PHP, Composer, Laravel, MySQL instalados) para que quede aún más completo como guía en tu GitHub?
+
+Perfecto, Nicolás, te lo dejo ahora completo en formato README.md, listo para copiar y pegar en tu repositorio de GitHub.
+
+
+---
+
+# Guía de Configuración del Proyecto
+
+Este documento explica cómo configurar los principales aspectos del proyecto en Laravel: **MySQL, idioma, zona horaria y foto de perfil**.
+
+---
+
+## 🚀 1. Configuración de MySQL
+1. Asegúrate de tener instalado y en ejecución **MySQL**.  
+2. Si usas **XAMPP**, también debes iniciar **Apache** junto con MySQL.  
+3. Levanta el servidor de Laravel con:  
+   ```bash
+   php artisan serve
+
+4. En caso de error de conexión, revisa el archivo .env del proyecto y corrige las credenciales:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+
+
+
+---
+
+🌐 2. Configuración de Idioma
+
+1. Abre el archivo config/app.php.
+
+
+2. Busca la clave:
+
+'locale' => 'en',
+
+
+3. Sustitúyela por el idioma deseado, por ejemplo para español:
+
+'locale' => 'es',
+
+
+4. Con esto los mensajes de validación y textos del framework estarán en español (si tienes instalados los archivos de traducción).
+
+
+
+
+---
+
+🕒 3. Configuración de Zona Horaria
+
+1. En el mismo archivo config/app.php, ubica la clave:
+
+'timezone' => 'UTC',
+
+
+2. Sustitúyela por tu zona horaria. Ejemplo para Ciudad de México:
+
+'timezone' => 'America/Mexico_City',
+
+
+3. De esta forma, todas las fechas y horas gestionadas por Laravel estarán alineadas con tu región.
+
+
+
+
+---
+
+🖼️ 4. Configuración de Foto de Perfil
+
+1. Laravel utiliza la carpeta storage/app/public para almacenar archivos.
+Para exponerla en public/storage, crea el enlace simbólico con:
+
+php artisan storage:link
+
+
+2. Al subir la foto de perfil:
+
+El sistema valida que no supere un tamaño máximo (ejemplo: 35 KB).
+
+La imagen se guarda en public/storage con un nombre aleatorio.
+
+En la base de datos se almacena solo la referencia del archivo.
+
+
+
+3. Desde la interfaz, podrás:
+
+Subir una nueva foto.
+
+Eliminar la foto existente.
+
+Reemplazarla por otra.
+
+
+
+
+
+---
+
+✅ Resumen
+
+Con estos pasos tendrás configurado:
+
+Base de datos MySQL.
+
+Idioma de la aplicación.
+
+Zona horaria correcta.
+
+Subida y gestión de foto de perfil.
+
+
