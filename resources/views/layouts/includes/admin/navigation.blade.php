@@ -11,8 +11,8 @@
                     </svg>
                 </button>
                 <a href="/" class="flex items-center">
-                    <img src="{{ asset('images/logo.png') }}" class="h-8 mr-3" alt="Logo del proyecto">
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Doctor App</span>
+                    <img src="{{ asset('images/logo.png') }}" class="h-5 mr-5" alt="Logo del proyecto">
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Lexus plex</span>
                 </a>
             </div>
             <div class="flex items-center">
