@@ -8,31 +8,15 @@
             'active' => request()->routeIs('admin.dashboard'),
         ],
         [
-            'header' => 'Hospital',
+            'header' => 'Gestion',
         ],
-        [
-            'name' => 'Citas',
-            'icon' => 'fa-solid fa-calendar-days', // Ícono para el elemento con submenú
-            'href' => '#', // El href principal no es necesario si es solo un toggle
-            'active' => false, // O puedes basar esto en las rutas del submenú
-            'submenu' => [
-                [
-                    'name' => 'Agendar Cita',
-                    'href' => '#',
-                    'active' => false,
-                ],
-                [
-                    'name' => 'Historial de Citas',
-                    'href' => '#',
-                    'active' => false,
-                ],
-                [
-                    'name' => 'Facturación',
-                    'href' => '#',
-                    'active' => false,
-                ],
-            ]
-        ]
+          [
+            'name' => 'Roles y permisos',
+            'icon' => 'fa-solid fa-shield-halved',
+            'href' => route('admin.roles.index'),
+            'active' => request()->routeIs('admin.roles.*'),
+        ],
+
     ];
 @endphp
 
