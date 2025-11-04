@@ -1,39 +1,29 @@
 @props([
     'title' => config('app.name', 'Laravel'),
-    'breadcrumbs' => []])
+    'breadcrumbs' => []
+])
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
-<title>{{ $title }}</title>
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-<!-- Scripts -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-<script src="https://kit.fontawesome.com/9161014f5f.js" crossorigin="anonymous"></script>
-
-<!-- Styles -->
-<head>
-    ...
-    <wireui:scripts />
-    <script src="//unpkg.com/alpinejs" defer></script>
-</head>
-@livewireStyles
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title }}</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://kit.fontawesome.com/9161014f5f.js" crossorigin="anonymous" defer></script>
+    
+    <!-- WireUI -->
+    <wireui:scripts />
+    
+    <!-- Livewire Styles -->
     @livewireStyles
 </head>
 <body class="font-sans antialiased bg-gray-500">
@@ -42,16 +32,29 @@
 
 <div class="p-4 sm:ml-64">
     {{-- añadiendo margen superior --}}
-    <div class="mt-14 flex items-center justify-between w-full">
-        @include('layouts.includes.admin.breadcrumb')
+    <div class="mt-14 flex items-center justify-between w-full mb-4">
+        <div class="flex-1">
+            @include('layouts.includes.admin.breadcrumb')
+        </div>
+        @isset($action)
+            <div class="ml-4">
+                {{ $action }}
+            </div>
+        @endisset
     </div>
     {{ $slot }}
 </div>
 
 @stack('modals')
 
+<!-- Livewire Scripts - Debe ir primero -->
 @livewireScripts
-<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+<!-- Alpine.js - WireUI ya incluye Alpine, pero si necesitas una versión específica descomenta -->
+<!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+
+<!-- Flowbite - Debe ir al final -->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js" defer></script>
 
 </body>
 </html>

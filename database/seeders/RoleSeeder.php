@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
@@ -13,17 +15,34 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        //definir role
+        // Fecha y hora específica para todos los roles: 20/10/2025 23:14
+        // Usar Carbon para crear la fecha en la zona horaria de la aplicación
+        $fixedDate = Carbon::create(2025, 10, 20, 23, 14, 0, config('app.timezone'));
+        
+        //definir roles en el orden correcto con sus IDs específicos
         $roles = [
-            'paciente',
-            'doctor',
-            'recepcionista',
-            'Administrador',
+            1 => 'paciente',
+            2 => 'doctor',
+            3 => 'recepcionista',
+            4 => 'Administrador',
         ];
-        //crear en la db
-        foreach ($roles as $role) {
-            Role::create([
-                'name' => $role
+        
+        // Eliminar todos los roles existentes primero
+        Role::query()->delete();
+        
+        // Resetear el auto-increment para que los IDs empiecen desde 1 (SQLite)
+        if (DB::getDriverName() === 'sqlite') {
+            DB::statement('DELETE FROM sqlite_sequence WHERE name = "roles"');
+        }
+        
+        // Crear roles en el orden correcto con IDs y fecha fijos
+        foreach ($roles as $id => $roleName) {
+            DB::table('roles')->insert([
+                'id' => $id,
+                'name' => $roleName,
+                'guard_name' => 'web',
+                'created_at' => $fixedDate,
+                'updated_at' => $fixedDate,
             ]);
         }
     }

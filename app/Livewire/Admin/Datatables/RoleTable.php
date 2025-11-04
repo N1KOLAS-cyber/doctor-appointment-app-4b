@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Livewire\Admin\Datatables;
+namespace App\Livewire\Admin\DataTables;
 
-use Livewire\Component;
-use App\Models\Role;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Spatie\Permission\Models\Role;
 
-class RoleTable extends Component
+class RoleTable extends DataTableComponent
 {
-    public $roles;
-    public $search = '';
+    protected $model = Role::class;
 
-    public function mount()
+    public function configure(): void
     {
-        $this->loadRoles();
+        $this->setPrimaryKey('id')
+            ->setDefaultSort('id', 'asc')
+            ->setEmptyMessage('No hay roles disponibles')
+            ->setSortingPillsDisabled();
     }
 
-    public function loadRoles()
+    public function columns(): array
     {
-        $query = Role::query();
-        
-        if ($this->search) {
-            $query->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('guard_name', 'like', '%' . $this->search . '%');
-        }
-        
-        $this->roles = $query->orderBy('id', 'desc')->get();
-    }
-
-    public function updatedSearch()
-    {
-        $this->loadRoles();
-    }
-
-    public function render()
-    {
-        return view('livewire.admin.datatables.role-table');
+        return [
+            Column::make("Id", "id")
+                ->sortable(),
+            Column::make("Nombre", "name")
+                ->sortable()
+                ->searchable(),
+            Column::make("Fecha de Creación", "created_at")
+                ->sortable()
+                ->format(fn($value) => $value ? $value->format('d/m/Y H:i') : ''),
+            Column::make("Acciones")
+                ->label(function ($row) {
+                    return view('admin.roles.actions',
+                    ['role' => $row]);
+                })
+        ];
     }
 }
