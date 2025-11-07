@@ -1,9 +1,10 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-import typography from '@tailwindcss/typography';
-import wireuiConfig from './vendor/wireui/wireui/tailwind.config.js';
+const defaultTheme = require('tailwindcss/defaultTheme');
+const forms = require('@tailwindcss/forms');
+const typography = require('@tailwindcss/typography');
+const wireuiConfig = require('./vendor/wireui/wireui/tailwind.config.js');
 
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
     presets: [wireuiConfig],
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',

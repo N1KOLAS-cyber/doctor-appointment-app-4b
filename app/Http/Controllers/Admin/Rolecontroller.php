@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
@@ -13,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.roles.index');
+        return view('admin.roles.index');  //
     }
 
     /**
@@ -38,8 +38,16 @@ class RoleController extends Controller
             'guard_name' => 'web',
         ]);
 
+        //variable de un solo uso para alerta
+        session()->flash('swal',
+            [
+                'icon' => 'success',
+                'title' => 'Rol creado correctamente!',
+                'text' => 'El rol ha sido creado correctamente.',
+            ]);
+
         return redirect()->route('admin.roles.index')
-            ->with('success', 'Rol creado exitosamente.');
+            ->with('success', 'Rol creado correctamente.');
     }
 
     /**
@@ -64,18 +72,14 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::findOrFail($id);
-
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'name' => 'required|string|max:255|unique:roles,name,' . $id,
         ]);
 
-        $role->update([
-            'name' => $request->name,
-        ]);
+        $role = Role::findOrFail($id);
+        $role->update($request->only('name'));
 
-        return redirect()->route('admin.roles.index')
-            ->with('success', 'Rol actualizado exitosamente.');
+        return redirect()->route('admin.roles.index')->with('success', 'Rol actualizado correctamente.');
     }
 
     /**
@@ -83,7 +87,10 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        // Por ahora solo muestra una página en blanco, no elimina
-        return view('admin.roles.destroy');
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        return redirect()->route('admin.roles.index')
+            ->with('success', 'Rol eliminado correctamente.');
     }
 }

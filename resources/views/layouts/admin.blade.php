@@ -3,7 +3,7 @@
     'breadcrumbs' => []
 ])
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -14,19 +14,22 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/9161014f5f.js" crossorigin="anonymous" defer></script>
-    
+
+    {{--sweet alert 2--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- WireUI -->
-    <wireui:scripts />
-    
+    <wireui:scripts/>
+
     <!-- Livewire Styles -->
     @livewireStyles
 </head>
-<body class="font-sans antialiased bg-gray-500">
+<body class="font-sans antialiased bg-gray-50">
 @include('layouts.includes.admin.navigation')
 @include('layouts.includes.admin.sidebar')
 
@@ -55,6 +58,17 @@
 
 <!-- Flowbite - Debe ir al final -->
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js" defer></script>
+{{--mostrar sweet alert--}}
+@if (session('swal'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire(@json(session('swal')));
+            }
+        });
+    </script>
+@endif
 
+@stack('scripts')
 </body>
 </html>

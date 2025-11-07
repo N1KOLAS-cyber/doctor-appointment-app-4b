@@ -4,7 +4,7 @@ namespace App\Livewire\Admin\DataTables;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleTable extends DataTableComponent
 {
@@ -12,10 +12,7 @@ class RoleTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id')
-            ->setDefaultSort('id', 'asc')
-            ->setEmptyMessage('No hay roles disponibles')
-            ->setSortingPillsDisabled();
+        $this->setPrimaryKey('id');
     }
 
     public function columns(): array
@@ -26,13 +23,15 @@ class RoleTable extends DataTableComponent
             Column::make("Nombre", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Fecha de Creación", "created_at")
+            Column::make("Fecha", "created_at")
                 ->sortable()
-                ->format(fn($value) => $value ? $value->format('d/m/Y H:i') : ''),
+                ->format(function ($value) {
+                    return $value->format('d/m/Y H:i');
+                }),
             Column::make("Acciones")
                 ->label(function ($row) {
                     return view('admin.roles.actions',
-                    ['role' => $row]);
+                        ['role' => $row]);
                 })
         ];
     }
