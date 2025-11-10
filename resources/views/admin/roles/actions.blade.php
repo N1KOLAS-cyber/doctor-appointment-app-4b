@@ -1,14 +1,13 @@
 <div class="flex items-center space-x-2">
-    <x-wire-button href="{{ route('admin.roles.edit', $role) }}" blue xs>
+    <x-button href="{{ route('admin.roles.edit', $role) }}" color="blue" size="xs">
         <i class="fa-solid fa-pen-to-square"></i>
-    </x-wire-button>
+    </x-button>
 
-    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="inline" onsubmit="return confirm('¿Está seguro de que desea eliminar este rol?');">
+    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="delete-form">
         @csrf
         @method('DELETE')
-        <x-wire-button type="submit" red xs>
+        <x-button type="submit" color="red" size="xs">
             <i class="fa-solid fa-trash"></i>
-        </x-wire-button>
+        </x-button>
     </form>
-
 </div>

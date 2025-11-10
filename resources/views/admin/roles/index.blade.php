@@ -8,10 +8,10 @@
     ],
 ]">
     <x-slot name="action">
-        <x-wire-button blue href="{{ route('admin.roles.create') }}">
+        <x-button color="blue" href="{{ route('admin.roles.create') }}">
             <i class="fa-solid fa-plus"></i>
             Nuevo
-        </x-wire-button>
+        </x-button>
     </x-slot>
     @livewire('admin.datatables.role-table')
 </x-admin-layout>

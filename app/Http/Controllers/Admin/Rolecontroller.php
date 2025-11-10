@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Role;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -14,14 +14,6 @@ class RoleController extends Controller
     public function index()
     {
         return view('admin.roles.index');  //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.roles.create');
     }
 
     /**
@@ -38,6 +30,7 @@ class RoleController extends Controller
             'guard_name' => 'web',
         ]);
 
+
         //variable de un solo uso para alerta
         session()->flash('swal',
             [
@@ -51,6 +44,14 @@ class RoleController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.roles.create');
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -61,36 +62,108 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        $role = Role::findOrFail($id);
+        //Restringir la acción para los primeros 4 roles fijos
+        if ($role->id <= 4) {
+            //Variable de un solo uso
+            session()->flash('swal',
+                [
+                    'icon' => 'error',
+                    'title' => 'Error',
+                    'text' => 'No puedes editar este rol.'
+                ]);
+            return redirect()->route('admin.roles.index');
+        }
         return view('admin.roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
+        //Restringir la acción para los primeros 4 roles fijos
+        if ($role->id <= 4) {
+            //Variable de un solo uso
+            session()->flash('swal',
+                [
+                    'icon' => 'error',
+                    'title' => 'Error',
+                    'text' => 'No puedes editar este rol.'
+                ]);
+            return redirect()->route('admin.roles.index');
+        }
+        
+        //validar que se cree bien
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,' . $id,
-        ]);
+            'name' => 'required|unique:roles,name,' . $role->id]);
 
-        $role = Role::findOrFail($id);
-        $role->update($request->only('name'));
+        //si el campo no cambio, no actualices
+        if ($role->name === $request->name) {
+            session()->flash('swal',
+                [
+                    'icon' => 'info',
+                    'title' => 'sin cambios',
+                    'text' => 'no se detectaron modificaciones'
+                ]);
+            return redirect()->route('admin.roles.edit', $role);
+        }
 
-        return redirect()->route('admin.roles.index')->with('success', 'Rol actualizado correctamente.');
+        //si pasa la validadion, actualizar el rol
+        $role->update(['name' => $request->name]);
+
+        //variable de un solo uso para alerta
+        session()->flash('swal',
+            [
+                'icon' => 'success',
+                'title' => 'Rol actualizado correctamente',
+                'text' => 'El rol ha sido actualizado exitosamente'
+            ]);
+
+        //Redirecionara a la tabla principal de roles
+        return redirect()->route('admin.roles.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        $role = Role::findOrFail($id);
+        //Restringir la acción para los primeros 4 roles fijos
+        if ($role->id <= 4) {
+            //Variable de un solo uso
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => 'Error',
+                'text' => 'No puedes eliminar este rol.'
+            ]);
+            return redirect()->route('admin.roles.index');
+        }
+
+        //  Verificar si el rol está asignado a algún usuario
+        $hasUsers = \DB::table('model_has_roles')
+            ->where('role_id', $role->id)
+            ->exists();
+
+        if ($hasUsers) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => 'No se puede eliminar el rol',
+                'text' => 'El rol tiene usuarios asociados y no puede ser eliminado'
+            ]);
+            return redirect()->route('admin.roles.index');
+        }
+
+        //  Si no está protegido ni asignado, eliminar el rol
         $role->delete();
 
-        return redirect()->route('admin.roles.index')
-            ->with('success', 'Rol eliminado correctamente.');
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Rol eliminado correctamente',
+            'text' => 'El rol ha sido eliminado exitosamente'
+        ]);
+
+        return redirect()->route('admin.roles.index');
     }
 }
