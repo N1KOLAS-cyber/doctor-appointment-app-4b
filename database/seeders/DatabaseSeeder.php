@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,15 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         //llamar a rolleseeder
         $this->call([
-            RoleSeeder::class
+            RoleSeeder::class,
+            UserSeeder::class
         ]);
 
-        // User::factory(10)->create();
-        User::factory()->create([
-            'name' => 'Nicolas Gamboa',
-            'email' => 'nicolasprueba@gmail.com',
-            'password' => bcrypt('nicolas1234')
-        ]);
     }
 }
 
