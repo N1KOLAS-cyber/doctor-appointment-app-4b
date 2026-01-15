@@ -134,6 +134,10 @@ class UserController extends Controller
                 ->with('error', 'No se puede eliminar el usuario administrador por defecto.');
         }
 
+        //Eliminar roles asociados a un usuario
+        $user->roles()->detach();
+
+        //Eliminar el usuario
         $user->delete();
 
         session()->flash('swal', [
@@ -142,7 +146,6 @@ class UserController extends Controller
             'text' => 'El usuario ha sido eliminado exitosamente'
         ]);
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario eliminado correctamente.');
+        return redirect()->route('admin.users.index');
     }
 }
