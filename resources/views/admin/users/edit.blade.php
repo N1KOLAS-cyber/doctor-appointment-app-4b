@@ -21,32 +21,34 @@
         @csrf
         @method('PUT')
         <div class="space-y-6">
+            <x-wire-input name="name" label="Nombre" required :value="old('name', $user->name)" placeholder="Ej: Juan Pérez" autocomplete="name"/>
+
+            <x-wire-input name="email" label="Correo Electrónico" type="email" required :value="old('email', $user->email)" placeholder="Ej: juan@example.com" autocomplete="email"/>
+
+            <x-wire-input name="id_number" label="Número de ID" :value="old('id_number', $user->id_number)" placeholder="Ej: 123456789"/>
+
+            <x-wire-input name="phone" label="Teléfono" :value="old('phone', $user->phone)" placeholder="Ej: 123456789"/>
+
+            <x-wire-input name="address" label="Dirección" :value="old('address', $user->address)" placeholder="Ej: Calle 123"/>
+
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                <input type="text"
-                       name="name"
-                       id="name"
-                       value="{{old('name', $user->name)}}"
-                       required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('name') border-red-300 @enderror"
-                       placeholder="Ej: Juan Pérez">
-                @error('name')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                <label for="role_id" class="block text-sm font-medium text-gray-700">Rol</label>
+                <select id="role_id" name="role_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="">Seleccione un rol</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
+                            {{ $role->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('role_id')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                <input type="email"
-                       name="email"
-                       id="email"
-                       value="{{old('email', $user->email)}}"
-                       required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('email') border-red-300 @enderror"
-                       placeholder="Ej: juan@example.com">
-                @error('email')
-                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+
+            <x-wire-input name="password" label="Nueva Contraseña (Opcional)" type="password" placeholder="Dejar en blanco para mantener la actual"/>
+
+            <x-wire-input name="password_confirmation" label="Confirmar Nueva Contraseña" type="password" placeholder="Repita la nueva contraseña"/>
         </div>
         <div class="mt-6 flex items-center justify-end space-x-3">
             <a href="{{ route('admin.users.index') }}"
