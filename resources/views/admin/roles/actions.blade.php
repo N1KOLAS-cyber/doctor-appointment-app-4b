@@ -3,7 +3,9 @@
         <i class="fa-solid fa-pen-to-square"></i>
     </x-button>
 
-    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="delete-form">
+    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" 
+          class="delete-form {{ $role->id <= 4 ? 'protected-role' : '' }}"
+          data-role-id="{{ $role->id }}">
         @csrf
         @method('DELETE')
         <x-button type="submit" color="red" size="xs">

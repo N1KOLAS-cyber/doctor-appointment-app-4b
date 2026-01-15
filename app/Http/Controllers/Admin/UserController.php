@@ -23,30 +23,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
-            'role_id' => 'nullable|exists:roles,id',
+        $data = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'id_number' => 'required|string|min:5|max:20|regex:/^[A-Za-z0-9\-]+$/|unique:users',
+            'phone' => 'required|digits_between:7,15',
+            'address' => 'required|string|min:3|max:255',
+            'role_id' => 'required|exists:roles,id',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role_id' => $request->role_id,
-        ]);
+        $userData = $data;
+        unset($userData['role_id']);
+        
+        $user = User::create($userData);
 
-        //variable de un solo uso para alerta
-        session()->flash('swal',
-            [
-                'icon' => 'success',
-                'title' => 'Usuario creado correctamente!',
-                'text' => 'El usuario ha sido creado correctamente.',
-            ]);
+        $user->roles()->attach($data['role_id']);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Usuario creado',
+            'text' => 'El usuario ha sido creado exitosamente',
+        ]);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario creado correctamente.');
+            ->with('success', 'User created successfully.');
     }
 
     /**
@@ -86,10 +87,20 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => "required|email|unique:users,email,$id",
+            'id_number' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
             'role_id' => 'nullable|exists:roles,id',
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
-        $user->update($request->only('name', 'email', 'role_id'));
+        $data = $request->only('name', 'email', 'id_number', 'phone', 'address', 'role_id');
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
 
         //variable de un solo uso para alerta
         session()->flash('swal',
@@ -109,6 +120,19 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+        
+        // Prevenir eliminación del usuario administrador por defecto
+        if ($user->email === 'nicolasprueba@gmail.com') {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => 'Error al eliminar usuario',
+                'text' => 'No se puede eliminar el usuario administrador por defecto.'
+            ]);
+
+            return redirect()->route('admin.users.index')
+                ->with('error', 'No se puede eliminar el usuario administrador por defecto.');
+        }
+
         $user->delete();
 
         session()->flash('swal', [
