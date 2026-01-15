@@ -40,7 +40,13 @@ class UserTable extends DataTableComponent
                 ->sortable(),
             Column::make("Rol", "roles")
                 ->label(function($row){
-                    return $row->roles->first()?->name ?? 'Sin Rol';
+                    $roles = [
+                        1 => 'Paciente',
+                        2 => 'Doctor',
+                        3 => 'Recepcionista',
+                        4 => 'Administrador',
+                    ];
+                    return $roles[$row->roles->first()?->id] ?? $row->roles->first()?->name ?? 'Sin Rol';
                 }),
             Column::make("Acciones")
                 ->label(function($row) {

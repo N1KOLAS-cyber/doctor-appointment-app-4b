@@ -22,7 +22,10 @@ class RoleTable extends DataTableComponent
                 ->sortable(),
             Column::make("Nombre", "name")
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->format(function ($value) {
+                    return ucfirst($value);
+                }),
             Column::make("Fecha", "created_at")
                 ->sortable()
                 ->format(function ($value) {

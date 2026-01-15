@@ -20,7 +20,7 @@
     <form action="{{route('admin.users.update', $user)}}" method="POST" class="px-4 py-5 sm:p-6">
         @csrf
         @method('PUT')
-        <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <x-wire-input name="name" label="Nombre" required :value="old('name', $user->name)" placeholder="Ej: Juan Pérez" autocomplete="name"/>
 
             <x-wire-input name="email" label="Correo Electrónico" type="email" required :value="old('email', $user->email)" placeholder="Ej: juan@example.com" autocomplete="email"/>
@@ -29,9 +29,11 @@
 
             <x-wire-input name="phone" label="Teléfono" :value="old('phone', $user->phone)" placeholder="Ej: 123456789"/>
 
-            <x-wire-input name="address" label="Dirección" :value="old('address', $user->address)" placeholder="Ej: Calle 123"/>
+            <div class="md:col-span-2">
+                <x-wire-input name="address" label="Dirección" :value="old('address', $user->address)" placeholder="Ej: Calle 123"/>
+            </div>
 
-            <div>
+            <div class="md:col-span-2">
                 <label for="role_id" class="block text-sm font-medium text-gray-700">Rol</label>
                 <select id="role_id" name="role_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
                     <option value="">Seleccione un rol</option>

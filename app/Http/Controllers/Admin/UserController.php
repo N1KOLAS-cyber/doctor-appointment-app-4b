@@ -105,14 +105,13 @@ class UserController extends Controller
 
         $user->roles()->sync($data['role_id']);
 
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => 'Usuario actualizado',
-            'text' => 'El usuario ha sido actualizado exitosamente',
-        ]);
-        
         return redirect()->route('admin.users.edit', $user->id)
-            ->with('success', 'User updated successfully.');
+            ->with('success', 'User updated successfully.')
+            ->with('swal', [
+                'icon' => 'success',
+                'title' => 'Usuario actualizado',
+                'text' => 'El usuario ha sido actualizado exitosamente',
+            ]);
     }
 
     /**

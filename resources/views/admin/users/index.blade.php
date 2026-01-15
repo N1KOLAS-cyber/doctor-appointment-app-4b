@@ -11,7 +11,7 @@
     {{-- 🔹 Botón principal --}}
     <x-slot name="action">
         <x-button color="blue" href="{{ route('admin.users.create') }}">
-            Nuevo Usuario
+            <i class="fa-solid fa-plus mr-1"></i> Nuevo Usuario
         </x-button>
     </x-slot>
     {{-- Tabla de usuarios --}}
