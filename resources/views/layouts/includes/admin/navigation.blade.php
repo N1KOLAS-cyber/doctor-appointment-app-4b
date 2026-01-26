@@ -17,40 +17,28 @@
             </div>
             <div class="flex items-center">
                 <!-- Settings Dropdown -->
-                <div class="ms-3 relative">
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button type="button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                </button>
-                            @else
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
+                <div class="ms-3 relative custom-dropdown">
+                    <div class="custom-dropdown-trigger">
+                        <button type="button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition hover:border-gray-400">
+                            <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        </button>
+                    </div>
 
-                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            @endif
-                        </x-slot>
-
-                        <x-slot name="content">
+                    <div class="custom-dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50" style="display: none;">
+                        <div class="py-1">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
+                            </a>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                <a href="{{ route('api-tokens.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     {{ __('API Tokens') }}
-                                </x-dropdown-link>
+                                </a>
                             @endif
 
                             <div class="border-t border-gray-200"></div>
@@ -61,14 +49,14 @@
                             @endphp
                             <form method="POST" action="{{ route('logout') }}" id="{{ $logoutFormId }}">
                                 @csrf
-
-                                <x-dropdown-link href="{{ route('logout') }}" 
-                                                 onclick="event.preventDefault(); document.getElementById('{{ $logoutFormId }}').submit();">
+                                <a href="{{ route('logout') }}" 
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                   onclick="event.preventDefault(); document.getElementById('{{ $logoutFormId }}').submit();">
                                     {{ __('Log Out') }}
-                                </x-dropdown-link>
+                                </a>
                             </form>
-                        </x-slot>
-                    </x-dropdown>
+                        </div>
+                    </div>
                 </div>
             </div>
                     </div>

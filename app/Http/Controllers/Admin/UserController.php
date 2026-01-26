@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -35,7 +35,7 @@ class UserController extends Controller
 
         $userData = $data;
         unset($userData['role_id']);
-        
+
         $user = User::create($userData);
 
         $user->roles()->attach($data['role_id']);
@@ -120,7 +120,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        
+        //1. validar si el usurio intenta borrase a si mismo
+        // esta linea lo que hace que el test reciba el codigo 403 esperado
+
+        if (auth()->id() === $user->id) {
+            abort(403, 'no tiene permisos para eliminar tu pripia cuenta');
+        }
         // Prevenir eliminación del usuario administrador por defecto
         if ($user->email === 'nicolasprueba@gmail.com') {
             session()->flash('swal', [
