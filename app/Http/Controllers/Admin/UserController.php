@@ -120,9 +120,16 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        //1. validar si el usurio intenta borrase a si mismo
-        // esta linea lo que hace que el test reciba el codigo 403 esperado
-
+        
+        // 1. Check if authenticated user is an administrator
+        $currentUser = auth()->user();
+        $isAdmin = $currentUser->roles()->where('id', 4)->exists();
+        
+        if (!$isAdmin) {
+            abort(403, 'Only administrators can delete users');
+        }
+        
+        // 2. Prevent user from deleting themselves
         if (auth()->id() === $user->id) {
             abort(403, 'no tiene permisos para eliminar tu pripia cuenta');
         }
