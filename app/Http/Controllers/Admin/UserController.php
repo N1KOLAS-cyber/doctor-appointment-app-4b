@@ -46,6 +46,13 @@ class UserController extends Controller
             'text' => 'El usuario ha sido creado exitosamente',
         ]);
 
+        //si el usuario creado es un paciente (role_id = 1), envia al modulo pacientes
+        $pacienteRoleId = 1;
+        if ((int) $data['role_id'] === $pacienteRoleId) {
+            $patient = $user->patient()->create([]);
+            return redirect()->route('admin.patients.edit', $patient);
+        }
+
         return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully.');
     }
@@ -120,15 +127,15 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        
+
         // 1. Check if authenticated user is an administrator
         $currentUser = auth()->user();
-        $isAdmin = $currentUser->roles()->where('id', 4)->exists();
-        
+        $isAdmin = $currentUser->hasRole('Administrador');
+
         if (!$isAdmin) {
             abort(403, 'Only administrators can delete users');
         }
-        
+
         // 2. Prevent user from deleting themselves
         if (auth()->id() === $user->id) {
             abort(403, 'no tiene permisos para eliminar tu pripia cuenta');

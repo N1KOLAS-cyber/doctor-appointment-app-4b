@@ -60,6 +60,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * Relación con el modelo Role
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    //relacion uno a uno
+    public function patient()
+    {
+        return $this->hasOne(Patient::class);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -70,13 +84,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    /**
-     * Relación con el modelo Role
-     */
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
     }
 }
