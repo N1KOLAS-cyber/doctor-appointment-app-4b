@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         //llamar a rolleseeder
         $this->call([
             RoleSeeder::class,
-            UserSeeder::class
+            AdminUserSeeder::class,
+            PatientSeeder::class,
         ]);
 
     }

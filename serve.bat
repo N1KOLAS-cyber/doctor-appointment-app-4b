@@ -1,0 +1,3 @@
+@echo off
+echo Iniciando servidor en http://127.0.0.1:8000...
+php -S 0.0.0.0:8000 -t public
