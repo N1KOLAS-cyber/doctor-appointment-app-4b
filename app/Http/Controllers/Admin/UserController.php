@@ -53,6 +53,13 @@ class UserController extends Controller
             return redirect()->route('admin.patients.edit', $patient);
         }
 
+        // si el usuario creado es un doctor (role_id = 2), envia al modulo doctores
+        $doctorRoleId = 2;
+        if ((int) $data['role_id'] === $doctorRoleId) {
+            $doctor = $user->doctor()->create([]);
+            return redirect()->route('admin.doctors.edit', $doctor);
+        }
+
         return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully.');
     }

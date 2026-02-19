@@ -36,6 +36,7 @@ class User extends Authenticatable
         'id_number',
         'phone',
         'address',
+        'profile_photo_path',
     ];
 
     /**
@@ -71,6 +72,12 @@ class User extends Authenticatable
     public function patient()
     {
         return $this->hasOne(Patient::class);
+    }
+
+    //relacion uno a uno
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
     }
 
     /**
