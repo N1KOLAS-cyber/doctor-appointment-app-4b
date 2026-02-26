@@ -37,7 +37,7 @@
 
         {{-- Encabezado con foto, nombre, licencia y botones de acción --}}
         <x-wire-card class="mb-8">
-            <div class="lg:flex lg:justify-between lg:items-center">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                 {{-- Lado izquierdo: avatar + nombre + licencia --}}
                 <div class="flex items-center">
                     <img src="{{ $doctor->user->profile_photo_url }}"
@@ -52,7 +52,7 @@
                 </div>
 
                 {{-- Lado derecho: botones --}}
-                <div class="flex space-x-3 mt-6 lg:mt-0">
+                <div class="flex space-x-3 mt-6 lg:mt-0 sm:justify-end">
                     <x-wire-button outline gray href="{{ route('admin.doctors.index') }}">
                         Volver
                     </x-wire-button>
@@ -71,7 +71,6 @@
                 {{-- Menú de pestañas --}}
                 <div class="border-b border-gray-200">
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
-
                         {{-- Tab 1: Datos personales (sin campos editables → nunca tiene errores) --}}
                         <li class="me-2">
                             <a href="#"
@@ -111,12 +110,11 @@
                                 @endif
                             </a>
                         </li>
-
                     </ul>
                 </div>
 
                 {{-- Contenido de los tabs --}}
-                <div class="px-4 mt-4">
+           
 
                     {{-- Contenido Tab 1: Datos personales (solo lectura) --}}
                     <div x-show="tab === 'datos-personales'">
@@ -124,8 +122,9 @@
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 {{-- Lado izquierdo: información --}}
                                 <div class="flex items-start">
+                                    <div class="flex-shrink-0"></div>
                                     <i class="fa-solid fa-user-gear text-blue-500 text-xl mt-1 me-2"></i>
-                                    <div class="ml-1">
+                                    <div class="ml-3">
                                         <p class="text-sm text-blue-700">
                                             La <strong>información de acceso</strong> (Nombre, email y contraseña)
                                             debe gestionarse desde la cuenta de usuario asociada.
@@ -195,7 +194,7 @@
                         </div>
                     </div>
 
-                </div>
+             
             </div>
         </x-wire-card>
     </form>
