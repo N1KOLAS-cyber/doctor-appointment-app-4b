@@ -13,7 +13,7 @@ jobs:
   tests:
     name: Tests (PHP ${{ matrix.php }}, Laravel)
     runs-on: ubuntu-latest
-    environment: Testing
+    environment: test
 
     strategy:
       fail-fast: true

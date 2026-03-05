@@ -13,7 +13,7 @@ jobs:
   pint:
     name: Laravel Pint
     runs-on: ubuntu-latest
-    environment: Testing
+    environment: test
 
     steps:
       - name: Checkout
