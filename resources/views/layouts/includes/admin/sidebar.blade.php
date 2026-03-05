@@ -37,6 +37,13 @@
             'active' => request()->routeIs('admin.doctors.*'),
         ],
 
+          [
+            'name' => 'Aseguradoras',
+            'icon' => 'fa-solid fa-briefcase-medical',
+            'href' => route('admin.insurances.index'),
+            'active' => request()->routeIs('admin.insurances.*'),
+        ],
+
 
 
     ];
