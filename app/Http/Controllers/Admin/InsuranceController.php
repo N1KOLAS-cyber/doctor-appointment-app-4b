@@ -40,8 +40,8 @@ class InsuranceController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡Éxito!',
-            'text' => 'Aseguradora creada exitosamente.'
+            'title' => 'Success!',
+            'text' => 'Insurance company created successfully.'
         ]);
 
         return redirect()->route('admin.insurances.index');
