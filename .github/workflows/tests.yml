@@ -58,5 +58,10 @@ jobs:
       - name: Build frontend
         run: npm run build
 
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
       - name: Execute tests
         run: php artisan test
