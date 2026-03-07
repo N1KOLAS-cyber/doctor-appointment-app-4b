@@ -15,7 +15,7 @@
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Lexus plex</span>
                 </a>
             </div>
-            <div class="flex items-center">
+            <div class="    flex items-center">
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative custom-dropdown">
                     <div class="custom-dropdown-trigger">
