@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Speciality;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DoctorSeeder extends Seeder
 {
@@ -13,7 +14,6 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        // Nombres de doctores reales de prueba
         $doctors = [
             ['name' => 'Dr. Carlos Mendoza',   'email' => 'carlos.mendoza@simify.com'],
             ['name' => 'Dra. Laura Pérez',      'email' => 'laura.perez@simify.com'],
@@ -25,16 +25,23 @@ class DoctorSeeder extends Seeder
         $specialities = Speciality::all();
 
         foreach ($doctors as $i => $data) {
-            // firstOrCreate evita duplicados si el seeder se corre más de una vez
+            $attrs = [
+                'name'     => $data['name'],
+                'password' => bcrypt('password'),
+            ];
+            if (Schema::hasColumn('users', 'id_number')) {
+                $attrs['id_number'] = 'DOC-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT);
+            }
+            if (Schema::hasColumn('users', 'phone')) {
+                $attrs['phone'] = '555' . str_pad($i + 1, 7, '0', STR_PAD_LEFT);
+            }
+            if (Schema::hasColumn('users', 'address')) {
+                $attrs['address'] = 'Consultorio ' . ($i + 1) . ', Hospital Central';
+            }
+
             $user = User::firstOrCreate(
                 ['email' => $data['email']],
-                [
-                    'name'     => $data['name'],
-                    'password' => bcrypt('password'),
-                    'id_number' => 'DOC-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
-                    'phone'    => '555' . str_pad($i + 1, 7, '0', STR_PAD_LEFT),
-                    'address'  => 'Consultorio ' . ($i + 1) . ', Hospital Central',
-                ]
+                $attrs
             );
 
             if (!$user->hasRole('Doctor')) {

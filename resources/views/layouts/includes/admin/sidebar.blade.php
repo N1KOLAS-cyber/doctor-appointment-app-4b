@@ -36,8 +36,24 @@
             'href' => route('admin.doctors.index'),
             'active' => request()->routeIs('admin.doctors.*'),
         ],
-
-
+        [
+            'name' => 'Citas médicas',
+            'icon' => 'fa-solid fa-calendar-plus',
+            'href' => route('admin.appointments.index'),
+            'active' => request()->routeIs('admin.appointments.*'),
+        ],
+        [
+            'name' => 'Calendario',
+            'icon' => 'fa-solid fa-calendar-days',
+            'href' => route('admin.dashboard'),
+            'active' => false,
+        ],
+        [
+            'name' => 'Soporte',
+            'icon' => 'fa-solid fa-headset',
+            'href' => route('admin.dashboard'),
+            'active' => false,
+        ],
 
     ];
 @endphp

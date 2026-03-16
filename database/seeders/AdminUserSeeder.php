@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class AdminUserSeeder extends Seeder
 {
@@ -13,16 +14,25 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
+        $attributes = [
+            'name'     => 'Admin',
+            'password' => Hash::make('password'),
+        ];
+
+        if (Schema::hasColumn('users', 'id_number')) {
+            $attributes['id_number'] = '0000001';
+        }
+        if (Schema::hasColumn('users', 'phone')) {
+            $attributes['phone'] = '0000000000';
+        }
+        if (Schema::hasColumn('users', 'address')) {
+            $attributes['address'] = 'Admin Address';
+        }
+
         // Buscar o crear el usuario admin
         $admin = User::firstOrCreate(
             ['email' => 'nicolasprueba@gmail.com'],
-            [
-                'name'      => 'Admin',
-                'password'  => Hash::make('password'),
-                'id_number' => '0000001',
-                'phone'     => '0000000000',
-                'address'   => 'Admin Address',
-            ]
+            $attributes
         );
 
         // Asignar el rol de Administrador (ID 4)

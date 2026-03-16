@@ -29,9 +29,11 @@ class DoctorsTable extends DataTableComponent
                 ->sortable(),
             Column::make('Email', 'user.email')
                 ->sortable(),
-            Column::make('Especialidad', 'speciality.name')
+            Column::make('DNI', 'user.id_number')
                 ->sortable(),
-            Column::make('Licencia', 'medical_license_number')
+            Column::make('Teléfono', 'user.phone')
+                ->sortable(),
+            Column::make('Especialidad', 'speciality.name')
                 ->sortable(),
             Column::make('Acciones')
                 ->label(function ($row) {
