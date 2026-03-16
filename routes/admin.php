@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\InsuranceController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -37,3 +38,10 @@ Route::get('appointments/{appointment}/consultation', function (Appointment $app
 
 // Gestión de citas
 Route::resource('appointments', AppointmentController::class);
+
+// Gestión de aseguradoras
+Route::resource('insurances', InsuranceController::class)->only([
+    'index',
+    'create',
+    'store',
+]);

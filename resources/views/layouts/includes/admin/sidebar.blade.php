@@ -10,27 +10,25 @@
         [
             'header' => 'Gestion',
         ],
-          [
+        [
             'name' => 'Roles y permisos',
             'icon' => 'fa-solid fa-shield-halved',
             'href' => route('admin.roles.index'),
             'active' => request()->routeIs('admin.roles.*'),
         ],
-          [
+        [
             'name' => 'Usuarios',
             'icon' => 'fa-solid fa-users',
             'href' => route('admin.users.index'),
             'active' => request()->routeIs('admin.users.*'),
         ],
-
-          [
+        [
             'name' => 'Pacientes',
             'icon' => 'fa-solid fa-user-injured',
             'href' => route('admin.patients.index'),
             'active' => request()->routeIs('admin.patients.*'),
         ],
-
-          [
+        [
             'name' => 'Doctores',
             'icon' => 'fa-solid fa-user-doctor',
             'href' => route('admin.doctors.index'),
@@ -41,6 +39,12 @@
             'icon' => 'fa-solid fa-calendar-plus',
             'href' => route('admin.appointments.index'),
             'active' => request()->routeIs('admin.appointments.*'),
+        ],
+        [
+            'name' => 'Aseguradoras',
+            'icon' => 'fa-solid fa-briefcase-medical',
+            'href' => route('admin.insurances.index'),
+            'active' => request()->routeIs('admin.insurances.*'),
         ],
         [
             'name' => 'Calendario',
@@ -54,7 +58,6 @@
             'href' => route('admin.dashboard'),
             'active' => false,
         ],
-
     ];
 @endphp
 
