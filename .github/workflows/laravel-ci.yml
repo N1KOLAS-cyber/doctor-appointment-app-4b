@@ -16,7 +16,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2' # Tu proyecto usa PHP 8.2 (según composer.json)
+        php-version: '8.3' # Subimos a 8.3 para coincidir con la versión con la que creaste el composer.lock
         tools: composer:v2
         coverage: none
     
