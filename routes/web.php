@@ -26,3 +26,19 @@ Route::get('/check-locale', function () {
 Route::get('/check-translation', function () {
     return __('auth.failed'); // mostrará el mensaje traducido en español
 });
+
+// -- RUTAS TEMPORALES PARA PROBAR COMPROBANTE DE CITA --
+Route::get('/test-pdf', function () {
+    $appointment = App\Models\Appointment::with(['patient.user', 'doctor.user', 'doctor.speciality'])->latest()->first();
+    if (!$appointment) return "Crea al menos una cita en el sistema primero.";
+    
+    $pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.appointment-receipt', ['appointment' => $appointment]);
+    return $pdf->stream('comprobante.pdf');
+});
+
+Route::get('/test-mail', function () {
+    $appointment = App\Models\Appointment::with(['patient.user', 'doctor.user', 'doctor.speciality'])->latest()->first();
+    if (!$appointment) return "Crea al menos una cita en el sistema primero.";
+    
+    return new App\Mail\AppointmentCreatedMail($appointment);
+});
