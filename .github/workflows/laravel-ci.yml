@@ -1,0 +1,59 @@
+name: Laravel CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2' # Tu proyecto usa PHP 8.2 (según composer.json)
+        tools: composer:v2
+        coverage: none
+    
+    # 💡 Opcional pero recomendado: Instalar Node.js para compilar Vite.
+    # Muchos tests (Feature) fallan si no encuentran el manifest de Vite en las vistas Blade.
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install Node Dependencies & Build
+      run: |
+        npm install
+        npm run build
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    # 💡 Laravel maneja la base de datos de tests en memoria (SQLite) basándose en tu phpunit.xml, 
+    # por lo que no es necesario levantar un servicio extra de base de datos MySQL.
+    
+    - name: Execute tests
+      run: php artisan test
