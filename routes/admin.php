@@ -21,6 +21,8 @@ Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 
 // Gestión de pacientes
+Route::get('patients-import', [App\Http\Controllers\Admin\PatientImportController::class, 'create'])->name('patients.import.create');
+Route::post('patients-import', [App\Http\Controllers\Admin\PatientImportController::class, 'store'])->name('patients.import.store');
 Route::resource('patients', PatientController::class);
 
 // Gestión de doctores
