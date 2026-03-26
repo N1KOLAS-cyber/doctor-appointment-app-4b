@@ -19,11 +19,14 @@ class PatientsImport implements ToCollection, WithHeadingRow, WithChunkReading, 
     {
         // Caché de tipos de sangre para optimizar consultas
         $bloodTypes = BloodType::all()->keyBy('name');
+        
+        // Precargar el rol de Spatie para evitar consultas estáticas por cada usuario
+        $patientRole = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'patient', 'guard_name' => 'web']);
 
         // 🔥 ¡Optimización Extrema de Concurrencia!
         // Envolver todas las inserciones del "Chunk" en una ÚNICA transacción.
         // Esto cambia el disco de escribir 2,000 veces a escribir 1 sola vez por ronda en SQLite.
-        \Illuminate\Support\Facades\DB::transaction(function () use ($rows, $bloodTypes) {
+        \Illuminate\Support\Facades\DB::transaction(function () use ($rows, $bloodTypes, $patientRole) {
             foreach ($rows as $row) {
                 // Verificar si el correo está vacío cruzando con los datos de prueba
                 if (!isset($row['correo']) || empty(trim($row['correo']))) {
@@ -42,9 +45,9 @@ class PatientsImport implements ToCollection, WithHeadingRow, WithChunkReading, 
                         ]
                     );
 
-                    // Asignar rol de paciente si no lo tiene
-                    if (!$user->hasRole('patient')) {
-                        $user->assignRole('patient');
+                    // Asignar rol de paciente usando el modelo nativo directamente
+                    if (!$user->hasRole($patientRole->name)) {
+                        $user->assignRole($patientRole);
                     }
 
                     // Obtener ID del tipo de sangre
