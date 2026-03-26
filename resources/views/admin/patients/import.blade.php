@@ -5,7 +5,7 @@
     ],
     [
         'name' => 'Pacientes',
-        'href' => route('patients.index')
+        'href' => route('admin.patients.index')
     ],
     [
         'name' => 'Importar'
@@ -23,7 +23,7 @@
             </p>
         </div>
         
-        <form action="{{ route('patients.import.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('admin.patients.import.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900" for="file">Seleccionar archivo Excel/CSV</label>
@@ -42,7 +42,7 @@
                 <button type="submit" class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center shadow-sm transition-all flex items-center gap-2">
                     <i class="fa-solid fa-cloud-arrow-up"></i> Importar en segundo plano
                 </button>
-                <a href="{{ route('patients.index') }}" class="text-gray-500 hover:text-gray-700 font-medium text-sm transition-colors">Volver a lista</a>
+                <a href="{{ route('admin.patients.index') }}" class="text-gray-500 hover:text-gray-700 font-medium text-sm transition-colors">Volver a lista</a>
             </div>
         </form>
     </div>
