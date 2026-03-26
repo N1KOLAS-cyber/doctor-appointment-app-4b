@@ -9,9 +9,9 @@
 ]">
 
     <x-slot:action>
-        <a href="{{ route('admin.patients.import.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+        <x-button href="{{ route('admin.patients.import.create') }}" color="blue" class="mb-2">
             <i class="fa-solid fa-file-import mr-2"></i> Importar Masivo
-        </a>
+        </x-button>
     </x-slot:action>
 
     @livewire('admin.datatables.patient-table')
